@@ -1,7 +1,7 @@
 /***************************************************************************
 Course Section: Section 3 - 12:00 p.m.
 Program: MathTutorV5
-Programmers: Kylian James and Confidence Affang
+Programmers:
 Date: 11/19/2024
 GitHub URL: https://github.com/KylianJ65/MathTutorV5.git
 Description: This is the Funniest and Craziest Math
