@@ -1,8 +1,8 @@
 /***************************************************************************
 Course Section: Section 3 - 12:00 p.m.
-Program: MathTutorV5
-Programmers:
-Date: 11/19/2024
+Program: MathTutorV6
+Programmers: Jacob, Seth and Confidence
+Date: 12/2/2024
 GitHub URL: https://github.com/KylianJ65/MathTutorV5.git
 Description: This is the Funniest and Craziest Math
 Tutor Game for Children. Version 3 invites you to the Math Tutor game.
@@ -24,6 +24,12 @@ they did on the test. To put it simply, Version 5 is an updated program of
 Version 4, in which we subdivided the 4th Version into several factors,
 so that the code looks more simple, neat, and appealing to the eye. In other words,
 it teaches us how to clean codes so that it's not overly too complicated to look at.
+MathtutorV6 will ask the user if they want to save the game and if they say yes,
+the program will write a 2D vector to a text file (mathtutor.txt) and will also
+let the user know how many questions were successfully saved. When the user goes
+back into the game it will ask if they want to load their previous game. If they say yes,
+then the previous game will be loaded from the 2D vector and then will let the user know
+it was successfully loaded.
 ***************************************************************************/
 
 #include "MathTutor.h"
