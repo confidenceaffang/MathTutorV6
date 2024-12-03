@@ -72,12 +72,21 @@ int main() {
         CheckForLevelChange(totalCorrect, totalIncorrect, mathLevel, currentRange);
 
         // Ask the user if they want to play again
-        userInput = AskToPlayAgain(userName);
+        userInput = YesNoQuestion(userName + "*\tDo you want to continue (y=yes | n=no)");
         playAgain = (userInput == "y" || userInput == "yes");
     }
 
     // Shows the summary of the questions in a proper display
     DisplaySummaryReport(questions);
+
+    try {
+        SaveCurrentGame(userName, questions);
+    } catch (runtime_error& e) {
+        //Prints error message passed by throw statement
+        cout << e.what() << endl;
+        cout << "Cannot compute health info." << endl;
+
+    }
 
     // Displaying to the User that the Program is Finished and that it will be back.
     cout << endl << "\tCheck back soon for the next version. Goodbye!" << endl;

@@ -17,7 +17,7 @@ using namespace std;
 void DisplayGameIntro();
 string GetUserName();
 int GetNumericValue();
-string AskToPlayAgain(string userName);
+string YesNoQuestion(string question);
 void DisplaySummaryReport(const vector<vector<int>> &allQuestions);
 vector<int> GenerateRandomQuestion(int mathLevel, int currentRange);
 bool GiveThreeAttempts(string userName, vector<int> &currentQuestion, int &totalCorrect, int &totalIncorrect);
