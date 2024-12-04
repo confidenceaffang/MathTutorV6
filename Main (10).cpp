@@ -50,6 +50,15 @@ int main() {
     string userName, userInput; // Gets the user answer
     bool playAgain = true;
 
+
+    try {
+        LoadPreviousGame(userName, questions);
+    } catch (runtime_error& e) {
+        //Prints error message passed by throw statement
+        cout << e.what() << endl;
+        cout << "Cannot compute health info." << endl;
+
+    }
     // Seed the random number generator
     srand(time(0));
 
