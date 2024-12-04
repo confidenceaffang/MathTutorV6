@@ -16,7 +16,6 @@ const string FILE_NAME = "mathtutor.txt";
 
 //Defining the functions an
 void DisplayGameIntro() {
-
     // Displaying the Program Intro/Presentation.
     cout << " ______________________________________________________________ " << endl;
     cout << "                                                                " << endl;
@@ -112,7 +111,7 @@ vector<int> GenerateRandomQuestion(int mathLevel, int currentRange) {
             symbol = '/';
             correctAnswer = leftNum;
             leftNum *= rightNum;
-            break;  // This shows that the code is broken, it displays a message.
+            break; // This shows that the code is broken, it displays a message.
         default:
             break;
     }
@@ -123,10 +122,11 @@ vector<int> GenerateRandomQuestion(int mathLevel, int currentRange) {
 bool GiveThreeAttempts(string userName, vector<int> &currentQuestion, int &totalCorrect, int &totalIncorrect) {
     int userAns = 0;
     bool isCorrect = false;
-    for (int i = 1; i <= MAX_ATTEMPTS; ++i) {  // Shows what level the user is on
+    for (int i = 1; i <= MAX_ATTEMPTS; ++i) {
+        // Shows what level the user is on
         cout << "[Level #" << currentQuestion[0] << "] " << userName
-             << ", what is " << currentQuestion[1] << " "
-             << char(currentQuestion[2]) << " " << currentQuestion[3] << "? ";
+                << ", what is " << currentQuestion[1] << " "
+                << char(currentQuestion[2]) << " " << currentQuestion[3] << "? ";
         userAns = GetNumericValue();
 
         // Check if the answer is correct
@@ -174,8 +174,9 @@ void CheckForLevelChange(int &totalCorrect, int &totalIncorrect, int &mathLevel,
     }
     return;
 }
+
 // The function below displays the final report of the user
-void DisplaySummaryReport(const vector<vector<int>> &allQuestions) {
+void DisplaySummaryReport(const vector<vector<int> > &allQuestions) {
     int totalCorrect = 0;
     int totalIncorrect = 0;
 
@@ -183,11 +184,11 @@ void DisplaySummaryReport(const vector<vector<int>> &allQuestions) {
     cout << "              Summary Report           " << endl;
     cout << "========================================" << endl;
     cout << setw(10) << left << "Level"
-         << setw(15) << left << " Question"
-         << setw(10) << left << "  Attempts" << endl;
+            << setw(15) << left << " Question"
+            << setw(10) << left << "  Attempts" << endl;
     cout << "------  ----------------  -----------" << endl;
 
-    for (const auto &q : allQuestions) {
+    for (const auto &q: allQuestions) {
         int questionLevel = q[0]; // Used for the level of Questions
         int qLeftNum = q[1]; // Generate random numbers between 1 and 10
         char qMathSymbol = static_cast<char>(q[2]); // Gets characters
@@ -197,7 +198,8 @@ void DisplaySummaryReport(const vector<vector<int>> &allQuestions) {
 
         // displays question details mathlevel, leftNum, symbol, rightNum, =, correctAnswer, then attempts per question
         cout << setw(10) << left << questionLevel
-             << setw(2) << left << qLeftNum << " " << qMathSymbol << " " <<setw(2)<< left << qRightNum<< setw(2)<<right<<" = "<<  qCorrectAns;
+                << setw(2) << left << qLeftNum << " " << qMathSymbol << " " << setw(2) << left << qRightNum << setw(2)
+                << right << " = " << qCorrectAns;
 
         // Displays the number of attempts or Incorrect
         if (qAttempts == 0) {
@@ -214,12 +216,12 @@ void DisplaySummaryReport(const vector<vector<int>> &allQuestions) {
     cout << "* Total Questions: " << setw(3) << allQuestions.size() << endl;
     cout << "* Total Correct..: " << setw(3) << totalCorrect << endl;
     cout << "* Total Incorrect: " << setw(3) << totalIncorrect << endl;
-    cout << "* Average correct : " << setw(3) << (static_cast<double>(totalCorrect)/static_cast<double>(allQuestions.size()))*100 << "%"<< endl;
+    cout << "* Average correct : " << setw(3) << (
+        static_cast<double>(totalCorrect) / static_cast<double>(allQuestions.size())) * 100 << "%" << endl;
     cout << "___________________________________ " << endl;
 }
 
-void SaveCurrentGame() {
-
+void SaveCurrentGame(string userName, const vector<vector<int> > &allQuestions) {
     string userInput = "?";
     ofstream outFS; // output file stream
 
@@ -236,8 +238,17 @@ void SaveCurrentGame() {
         throw runtime_error("Unable to open file " + FILE_NAME);
     }
 
+    outFS << userInput;
+    for (int i = 0; i < allQuestions.size(); i++) {
+        outFS << allQuestions.at(i).at(0) << " " << allQuestions.at(i).at(1) << " " << allQuestions.at(i).at(2) <<
+                " "<< allQuestions.at(i).at(3) <<" " << allQuestions.at(i).at(4) << " " << allQuestions.at(i).at(5) << endl;
+    }
 
 
     outFS.close();
 }
 
+void LoadPreviousGame(string userName, const vector<vector<int> > &allQuestions) {
+    string userInput = "?";
+    ofstream outFS;
+}

@@ -1,0 +1,3 @@
+C:/Users/coaffa01/CLionProjects/MathTutorV6/cmake-build-debug/CMakeFiles/MathTutorV6.dir
+C:/Users/coaffa01/CLionProjects/MathTutorV6/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/coaffa01/CLionProjects/MathTutorV6/cmake-build-debug/CMakeFiles/rebuild_cache.dir
