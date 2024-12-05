@@ -237,8 +237,6 @@ void SaveCurrentGame(string userName, const vector<vector<int> > &allQuestions) 
     if (!outFS.is_open()) {
         throw runtime_error("Unable to open file " + FILE_NAME);
     }
-
-    outFS << userInput;
     for (int i = 0; i < allQuestions.size(); i++) {
         outFS << allQuestions.at(i).at(0) << " " << allQuestions.at(i).at(1) << " " << allQuestions.at(i).at(2) <<
                 " "<< allQuestions.at(i).at(3) <<" " << allQuestions.at(i).at(4) << " " << allQuestions.at(i).at(5) << endl;
@@ -248,7 +246,32 @@ void SaveCurrentGame(string userName, const vector<vector<int> > &allQuestions) 
     outFS.close();
 }
 
-void LoadPreviousGame(string userName, const vector<vector<int> > &allQuestions) {
-    string userInput = "?";
-    ofstream outFS;
+void LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
+    ifstream inFS; 
+    string userInput;
+
+    userInput = YesNoQuestion(userName + ", do you want to load your previous game (y=yes | n=no)? ");
+
+    if (userInput == "no") {
+        cout << "Load game canceled." << endl;
+        return;
+    }
+
+    inFS.open(FILE_NAME);
+    if (!inFS.is_open()) {
+        cerr << "Error: Unable to open file " << FILE_NAME << ". No previous game to load." << endl;
+        return;
+    }
+
+    allQuestions.clear();
+
+    vector<int> questionData(6);
+    while (inFS >> questionData[0] >> questionData[1] >> questionData[2] >> questionData[3]
+                 >> questionData[4] >> questionData[5]) {
+        allQuestions.push_back(questionData);
+    }
+
+    inFS.close();
+
+    cout << "Previous game loaded successfully. Resuming your progress!" << endl;
 }

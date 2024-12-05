@@ -50,21 +50,23 @@ int main() {
     string userName, userInput; // Gets the user answer
     bool playAgain = true;
 
-
+   // Displays the game's intro and gets the user's name
+    DisplayGameIntro();
+    userName = GetUserName();
+   
     try {
         LoadPreviousGame(userName, questions);
-    } catch (runtime_error& e) {
-        //Prints error message passed by throw statement
+        if (!questions.empty()) {
+            cout << "Welcome back, " << userName << "! Your previous game has been loaded." << endl;
+        } else {
+            cout << "No saved game found. Starting fresh!" << endl;
+        }
+    } catch (const runtime_error &e) {
         cout << e.what() << endl;
-        cout << "Cannot compute health info." << endl;
-
+        cout << "Starting a new session instead." << endl;
     }
     // Seed the random number generator
     srand(time(0));
-
-    // Displays the game's intro and gets the user's name
-    DisplayGameIntro();
-    userName = GetUserName();
 
     // Shows if the user wants to play again
     while (playAgain) {
