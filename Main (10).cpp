@@ -56,7 +56,7 @@ int main() {
    
     try {
         LoadPreviousGame(userName, questions);
-        if (!questions.empty()) {
+        if (!questions.empty() && userInput == "yes") {
             cout << "Welcome back, " << userName << "! Your previous game has been loaded." << endl;
         } else {
             cout << "No saved game found. Starting fresh!" << endl;

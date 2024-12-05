@@ -252,11 +252,11 @@ void LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
 
     userInput = YesNoQuestion(userName + ", do you want to load your previous game (y=yes | n=no)? ");
 
-    if (userInput == "no") {
+    if (userInput == "no"|| userInput == "n") {
         cout << "Load game canceled." << endl;
         return;
     }
-
+    else{
     inFS.open(FILE_NAME);
     if (!inFS.is_open()) {
         cerr << "Error: Unable to open file " << FILE_NAME << ". No previous game to load." << endl;
@@ -273,5 +273,5 @@ void LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
 
     inFS.close();
 
-    cout << "Previous game loaded successfully. Resuming your progress!" << endl;
+    cout << "Previous game loaded successfully. Resuming your progress!" << endl;}
 }
