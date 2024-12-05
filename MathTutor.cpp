@@ -113,6 +113,8 @@ vector<int> GenerateRandomQuestion(int mathLevel, int currentRange) {
             leftNum *= rightNum;
             break; // This shows that the code is broken, it displays a message.
         default:
+            cout << "Invalid question type" << endl;
+            cout << "Pleasre report this errot to Jacob and Confidence" << endl;
             break;
     }
     return {mathLevel, leftNum, static_cast<int>(symbol), rightNum, correctAnswer, 0};
@@ -270,7 +272,7 @@ void LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
                  >> questionData[4] >> questionData[5]) {
         allQuestions.push_back(questionData);
     }
-
+    throw runtime_error("Somtething went wromng with reading the "+FILE_NAME + " file");
     inFS.close();
 
     cout << "Previous game loaded successfully. Resuming your progress!" << endl;}
