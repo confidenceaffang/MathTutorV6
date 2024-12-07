@@ -55,7 +55,7 @@ int main() {
     userName = GetUserName();
    
     try {
-        LoadPreviousGame(userName, questions);
+        LoadPreviousGame(userName, questions, mathLevel, currentRange);
         if (!questions.empty() && userInput == "yes") {
             cout << "Welcome back, " << userName << "! Your previous game has been loaded." << endl;
         } else {
@@ -91,7 +91,7 @@ int main() {
     DisplaySummaryReport(questions);
 
     try {
-        SaveCurrentGame(userName, questions);
+        SaveCurrentGame(userName, questions, mathLevel, currentRange);
     } catch (runtime_error& e) {
         //Prints error message passed by throw statement
         cout << e.what() << endl;

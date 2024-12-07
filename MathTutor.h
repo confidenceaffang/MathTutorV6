@@ -22,7 +22,7 @@ void DisplaySummaryReport(const vector<vector<int>> &allQuestions);
 vector<int> GenerateRandomQuestion(int mathLevel, int currentRange);
 bool GiveThreeAttempts(string userName, vector<int> &currentQuestion, int &totalCorrect, int &totalIncorrect);
 void CheckForLevelChange(int &totalCorrect, int &totalIncorrect, int &mathLevel, int &currentRange);
-void SaveCurrentGame(string userName, const vector<vector<int>> &allQuestions);
-void LoadPreviousGame(string userName ,const vector<vector<int>> &allQuestions);
+void SaveCurrentGame(string userName, const vector<vector<int>> &allQuestions, int mathLevel, int currentRange);
+void LoadPreviousGame(string userName ,const vector<vector<int>> &allQuestions, int& mathLevel, int& currentRange);
 #include "MathTutor.cpp"
 #endif //MATHTUTOR_H

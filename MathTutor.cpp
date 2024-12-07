@@ -248,7 +248,7 @@ void SaveCurrentGame(string userName, const vector<vector<int> > &allQuestions) 
     outFS.close();
 }
 
-void LoadPreviousGame(string userName, vector<vector<int>> &allQuestions) {
+void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& mathLevel, int currentRange) {
     ifstream inFS; 
     string userInput;
 
