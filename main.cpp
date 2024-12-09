@@ -53,16 +53,16 @@ int main() {
    // Displays the game's intro and gets the user's name
     DisplayGameIntro();
     userName = GetUserName();
-   
+   // Attempt to load a previous game
     try {
         LoadPreviousGame(userName, questions, mathLevel, currentRange);
-        if (!questions.empty() && userInput == "yes") {
-            cout << "Welcome back, " << userName << "! Your previous game has been loaded." << endl;
+        if (!questions.empty()) {
+            cout << "Welcome back, " << userName << "! Your progress has been loaded." << endl;
         } else {
-            cout << "No saved game found. Starting fresh!" << endl;
+            cout << "No saved game data found. Starting fresh!" << endl;
         }
-    } catch (const runtime_error &e) {
-        cout << e.what() << endl;
+    } catch (const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
         cout << "Starting a new session instead." << endl;
     }
     // Seed the random number generator
@@ -90,14 +90,13 @@ int main() {
     // Shows the summary of the questions in a proper display
     DisplaySummaryReport(questions);
 
+    // Save the current game progress
     try {
-        SaveCurrentGame(userName, questions, mathLevel, currentRange);
-    } catch (runtime_error& e) {
-        //Prints error message passed by throw statement
-        cout << e.what() << endl;
-        cout << "Cannot compute health info." << endl;
-
+        SaveGameProgress(userName, questions, mathLevel, currentRange);
+    } catch (const runtime_error& e) {
+        cout << "Error: Unable to save your game. " << e.what() << endl;
     }
+
 
     // Displaying to the User that the Program is Finished and that it will be back.
     cout << endl << "\tCheck back soon for the next version. Goodbye!" << endl;

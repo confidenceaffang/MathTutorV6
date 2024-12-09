@@ -223,42 +223,48 @@ void DisplaySummaryReport(const vector<vector<int> > &allQuestions) {
     cout << "___________________________________ " << endl;
 }
 
-void SaveCurrentGame(string userName, const vector<vector<int> > &allQuestions) {
+void SaveGameProgress(const string& userName, const vector<vector<int>>& allQuestions, int mathLevel, int currentRange) {
+    ofstream outFS(FILE_NAME);
     string userInput = "?";
-    ofstream outFS; // output file stream
-
     userInput = YesNoQuestion(userName + ", do you want to save your game (y=yes | n=no)?");
 
-    if (userInput == "no" || userInput == "yes") {
+     
+    if (userInput == "no" || userInput == "n") {
         cout << "Save game canceled";
         return;
     }
-    //open file
-    outFS.open(FILE_NAME);
 
     if (!outFS.is_open()) {
-        throw runtime_error("Unable to open file " + FILE_NAME);
+        cerr << "Error: Unable to save game to file " << FILE_NAME << "." << endl;
+        return;
     }
-    for (int i = 0; i < allQuestions.size(); i++) {
-        outFS << allQuestions.at(i).at(0) << " " << allQuestions.at(i).at(1) << " " << allQuestions.at(i).at(2) <<
-                " "<< allQuestions.at(i).at(3) <<" " << allQuestions.at(i).at(4) << " " << allQuestions.at(i).at(5) << endl;
-    }
+    //this saves mathLevel and range as the first line for easy retrieval
+    outFS << mathLevel << " " << currentRange << endl;
 
+    //  this Save all questionsin the file
+    for (const auto& question : allQuestions) {
+        for (int value : question) {
+            outFS << value << " ";
+        }
+        outFS << endl;
+    }
 
     outFS.close();
+    cout << "Game progress saved successfully!" << endl;
 }
 
-void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& mathLevel, int currentRange) {
-    ifstream inFS; 
+
+void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& mathLevel, int& currentRange) {
+    ifstream inFS;
     string userInput;
 
     userInput = YesNoQuestion(userName + ", do you want to load your previous game (y=yes | n=no)? ");
 
-    if (userInput == "no"|| userInput == "n") {
+    if (userInput == "no" || userInput == "n") {
         cout << "Load game canceled." << endl;
         return;
     }
-    else{
+
     inFS.open(FILE_NAME);
     if (!inFS.is_open()) {
         cerr << "Error: Unable to open file " << FILE_NAME << ". No previous game to load." << endl;
@@ -267,13 +273,25 @@ void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& m
 
     allQuestions.clear();
 
+    // Read mathLevel and currentRange from the first row
+    if (!(inFS >> mathLevel >> currentRange)) {
+        cerr << "Error: Failed to load math level and range from file." << endl;
+        inFS.close();
+        return;
+    }
+
+    // Read the rest of the rows into allQuestions
     vector<int> questionData(6);
-    while (inFS >> questionData[0] >> questionData[1] >> questionData[2] >> questionData[3]
-                 >> questionData[4] >> questionData[5]) {
+    while (inFS >> questionData[0] >> questionData[1] >> questionData[2]
+                 >> questionData[3] >> questionData[4] >> questionData[5]) {
         allQuestions.push_back(questionData);
     }
-    throw runtime_error("Somtething went wromng with reading the "+FILE_NAME + " file");
-    inFS.close();
 
-    cout << "Previous game loaded successfully. Resuming your progress!" << endl;}
+    if (inFS.bad()) {
+        cerr << "Error: Something went wrong while reading the file." << endl;
+    }
+
+    inFS.close();
+    cout << "Previous game loaded successfully. Resuming your progress from level " 
+         << mathLevel << " with range " << currentRange << "!" << endl;
 }
