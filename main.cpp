@@ -3,7 +3,7 @@ Course Section: Section 3 - 12:00 p.m.
 Program: MathTutorV6
 Programmers: Jacob, Seth and Confidence
 Date: 12/2/2024
-GitHub URL: https://github.com/KylianJ65/MathTutorV5.git
+GitHub URL: https://github.com/confidenceaffang/MathTutorV6.git
 Description: This is the Funniest and Craziest Math
 Tutor Game for Children. Version 3 invites you to the Math Tutor game.
 It welcomes you, gives you fun math facts, it asks for your name,
