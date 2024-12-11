@@ -1,10 +1,12 @@
+// This is the Mathtutor.cpp file where all the functions are being implemented so that it can be used in the driver file which is main.cpp
 #include <iostream> // Needed for cin/cout, /t for tab spacing, and left and right alignment
 #include <string> // Needed for string variables - date types
 #include <cstdlib> // Needed for random numbers
-#include <fstream>
+#include <fstream>// for getting contents into and out of a file
 #include <limits> // Used for limits library
 #include <vector> // used so we can make our 2D Vector
 #include <iomanip> //for the setw
+#include <ctime> // for using system time to generate random numbers
 
 using namespace std; // used to not put "std" in cin/cout
 
@@ -58,27 +60,34 @@ string GetUserName() {
 // Get the input from the user and makes sure it's a number and not any other character
 int GetNumericValue() {
     int userAns;
+
     while (!(cin >> userAns)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "\tInvalid input! Please enter a number: ";
     }
+
     return userAns;
 }
 
 // The function that asks the user whether they would like to play again and returns yes or no which are the user's input
 string YesNoQuestion(string question) {
     string userInput;
+
     while (true) {
         cout << question;
         cin >> userInput;
+
         for (auto &c: userInput) c = tolower(c); // Gets the user input for if they want to continue
+
         if (userInput == "y" || userInput == "yes" || userInput == "n" || userInput == "no") {
             break;
         } else {
             cout << "*\tInvalid input, please try again..." << endl;
         }
+        
     }
+
     return userInput; // returns a string
 }
 
@@ -223,6 +232,7 @@ void DisplaySummaryReport(const vector<vector<int> > &allQuestions) {
     cout << "___________________________________ " << endl;
 }
 
+// this saves the program's summary into a file "mathtutor.txt"
 void SaveGameProgress(const string& userName, const vector<vector<int>>& allQuestions, int mathLevel, int currentRange) {
     ofstream outFS(FILE_NAME);
     string userInput = "?";
@@ -231,13 +241,14 @@ void SaveGameProgress(const string& userName, const vector<vector<int>>& allQues
      
     if (userInput == "no" || userInput == "n") {
         cout << "Save game canceled";
-        return;
+        return ;
     }
 
     if (!outFS.is_open()) {
         cerr << "Error: Unable to save game to file " << FILE_NAME << "." << endl;
-        return;
+        return ;
     }
+
     //this saves mathLevel and range as the first line for easy retrieval
     outFS << mathLevel << " " << currentRange << endl;
 
@@ -253,11 +264,11 @@ void SaveGameProgress(const string& userName, const vector<vector<int>>& allQues
     cout << "Game progress saved successfully!" << endl;
 }
 
-
+// Loads the content from the file and continues progress
 void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& mathLevel, int& currentRange) {
     ifstream inFS;
     string userInput;
-
+    inFS.open(FILE_NAME);
     userInput = YesNoQuestion(userName + ", do you want to load your previous game (y=yes | n=no)? ");
 
     if (userInput == "no" || userInput == "n") {
@@ -265,13 +276,12 @@ void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& m
         return;
     }
 
-    inFS.open(FILE_NAME);
+    
     if (!inFS.is_open()) {
         cerr << "Error: Unable to open file " << FILE_NAME << ". No previous game to load." << endl;
         return;
     }
 
-    allQuestions.clear();
 
     // Read mathLevel and currentRange from the first row
     if (!(inFS >> mathLevel >> currentRange)) {
@@ -294,4 +304,5 @@ void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& m
     inFS.close();
     cout << "Previous game loaded successfully. Resuming your progress from level " 
          << mathLevel << " with range " << currentRange << "!" << endl;
+    
 }

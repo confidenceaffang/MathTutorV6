@@ -1,17 +1,13 @@
 // This is the header file for the Math Tutor version 6 project
+// The guards ifndef, define and endif are use so that the the contents in the header file is only displayed once
+// The header file does contain thr description of all the functions used in the code.
 #ifndef MATHTUTOR_H
 #define MATHTUTOR_H
 
-#include <iostream>
 #include <vector>
 #include <string>
-#include <ctime> // Needed for system time
-
-
 
 using namespace std;
-
-
 
 // Function Prototypes
 void DisplayGameIntro();
@@ -25,4 +21,5 @@ void CheckForLevelChange(int &totalCorrect, int &totalIncorrect, int &mathLevel,
 void SaveGameProgress(const string& userName, const vector<vector<int>>& allQuestions, int mathLevel, int currentRange);
 void LoadPreviousGame(string userName, vector<vector<int>>& allQuestions, int& mathLevel, int& currentRange);
 #include "MathTutor.cpp"
+
 #endif //MATHTUTOR_H
